@@ -1,31 +1,22 @@
-%% SET MODE! 
-% 
-% a=1   b=2   c=3
-
-MODE = 1;
-
-syms s
+syms s wn
 a = 1;
 b = 2;
 c = 1;
 K = c;
 
-if MODE == 1
-    a_values = [a, a, a];
-    b_values = [0.7*b, 1*b, 1.3*b];
-elseif MODE == 2
-    a_values = [0.7*a, 1*a, 1.3*a];
-    b_values = [b, b, b];
-end
+% Values for 'wn' in three iterations
+wn_values = [0.7*b, 1*b, 1.3*b];
+zeta = 0.1*a;
 
 % Initialize arrays to store results
-wn_values = zeros(1, 3);    % Array for natural frequencies
-zeta_values = zeros(1, 3);  % Array for damping ratios
+wn_result = zeros(1, 3);    % Array for natural frequencies
+zeta_result = zeros(1, 3);  % Array for damping ratios
 
+% Loop through three different values of 'wn'
 for i = 1:3
-    % Define the complex conjugate terms with the fixed 'a' value and current 'b'
-    term1 = s + a_values(i) + b_values(i)*1i;
-    term2 = s + a_values(i) - b_values(i)*1i;
+    % Define the complex conjugate terms with the current 'a' value and fixed 'b'
+    term1 = s + zeta*wn_values(i) + wn_values(i)*sqrt(1-zeta^2)*1i;
+    term2 = s + zeta*wn_values(i) - wn_values(i)*sqrt(1-zeta^2)*1i;
 
     % Multiply the terms
     result = term1 * term2;
@@ -39,15 +30,15 @@ for i = 1:3
     coeff_x0 = coeffs_result(1);
 
     % Calculate natural frequency (wn) and damping ratio (zeta)
-    wn_values(i) = sqrt(coeff_x0);
-    zeta_values(i) = coeff_x1 / (2 * wn_values(i));
+    wn_result(i) = sqrt(coeff_x0);
+    zeta_result(i) = coeff_x1 / (2 * wn_result(i));
 end
 
 % Display the results
 disp('Natural Frequencies (wn):');
-disp(wn_values);
+disp(wn_result);
 disp('Damping Ratios (zeta):');
-disp(zeta_values);
+disp(zeta_result);
 
 % Create a time vector for simulation
 t = 0:0.01:10;
@@ -57,23 +48,19 @@ figure;
 
 % Loop through different values of wn, ζ
 for i = 1:3
-    zeta = zeta_values(i);
-    wn = wn_values(i);
-
-    % Calculate the poles
-    s1 = -a_values(i) + 1j*b_values(i);
-    s2 = -a_values(i) - 1j*b_values(i);
+    zeta = zeta_result(i);
+    wn = wn_result(i);
 
     % Calculate the closed-loop transfer function
     num = K * wn;
-    den = [1, 2 * zeta * wn, wn^2];
+    den = [1, 2 * zeta * wn, wn * wn];
     sys = tf(num, den);
 
     % Simulate the step response
     y = step(sys, t);
 
     % Plot the step response
-    plot(t, y, 'LineWidth', 1.5, 'DisplayName', ['ζ = ', num2str(zeta)]);
+    plot(t, y, 'LineWidth', 1.5, 'DisplayName', ['wn = ', num2str(wn)]);
     hold on;
 end
 
@@ -86,3 +73,4 @@ grid on;
 
 % Display the plot
 hold off;
+
