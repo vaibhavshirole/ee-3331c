@@ -2,7 +2,7 @@
 % 
 % a=1   b=2
 
-MODE = 1;
+MODE = 2;
 
 syms s
 a = 1;
@@ -40,6 +40,9 @@ for i = 1:3
     % Calculate natural frequency (wn) and damping ratio (zeta)
     wn_values(i) = sqrt(coeff_x0);
     zeta_values(i) = coeff_x1 / (2 * wn_values(i));
+
+%     wn_values(i) = sqrt(a_values(i)^2+b_values(i)^2);
+%     zeta_values(i) = a_values(i)/wn_values(i);
 end
 
 % Display the results
@@ -58,6 +61,7 @@ figure;
 for i = 1:3
     zeta = zeta_values(i);
     wn = wn_values(i);
+    K = c * wn;
 
     % Calculate the closed-loop transfer function
     num = K * wn;

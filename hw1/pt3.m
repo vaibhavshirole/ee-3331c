@@ -32,6 +32,9 @@ for i = 1:3
     % Calculate natural frequency (wn) and damping ratio (zeta)
     wn_result(i) = sqrt(coeff_x0);
     zeta_result(i) = coeff_x1 / (2 * wn_result(i));
+
+%     wn_result(i) = sqrt( (wn_values(i)*zeta)^2+ (wn_values(i)*sqrt(1-zeta^2))^2 );
+%     zeta_result(i) = zeta;
 end
 
 % Display the results
@@ -40,8 +43,8 @@ disp(wn_result);
 disp('Damping Ratios (zeta):');
 disp(zeta_result);
 
-% Create a time vector for simulation
-t = 0:0.01:10;
+% Create a time vector for simulation (low wn, increased time)
+t = 0:0.01:25;
 
 % Initialize a figure for plotting
 figure;
@@ -50,6 +53,7 @@ figure;
 for i = 1:3
     zeta = zeta_result(i);
     wn = wn_result(i);
+    K = c * wn;
 
     % Calculate the closed-loop transfer function
     num = K * wn;
