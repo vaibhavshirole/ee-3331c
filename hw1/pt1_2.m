@@ -2,13 +2,12 @@
 % 
 % a=1   b=2
 
-MODE = 2;
+MODE = 1;
 
 syms s
 a = 1;
 b = 2;
 c = 1;
-K = c;
 
 if MODE == 1
     a_values = [a, a, a];
