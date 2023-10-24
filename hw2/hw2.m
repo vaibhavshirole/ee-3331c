@@ -30,15 +30,13 @@ end
 subplot(2, 1, 1);
 grid on;
 title('Bode Plot - Magnitude Response');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude (dB)');
+xlabel('Frequency (Hz)'); ylabel('Magnitude (dB)');
 legend('Location', 'Best');
 
 subplot(2, 1, 2);
 grid on;
 title('Bode Plot - Phase Response');
-xlabel('Frequency (Hz)');
-ylabel('Phase (degrees)');
+xlabel('Frequency (Hz)'); ylabel('Phase (degrees)');
 legend('Location', 'Best');
 
 sgtitle('Bode Plots for Different Values of b');
@@ -69,7 +67,6 @@ legend('Location', 'Best');
 
 %% C //----------//----------//----------//----------//----------//
 
-a = 1;
 b = 2;
 c_values = [0.1*b, 10*b];
 
@@ -100,15 +97,13 @@ end
 subplot(2, 1, 1);
 grid on;
 title('Bode Plot - Magnitude Response');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude (dB)');
+xlabel('Frequency (Hz)'); ylabel('Magnitude (dB)');
 legend('Location', 'Best');
 
 subplot(2, 1, 2);
 grid on;
 title('Bode Plot - Phase Response');
-xlabel('Frequency (Hz)');
-ylabel('Phase (degrees)');
+xlabel('Frequency (Hz)'); ylabel('Phase (degrees)');
 legend('Location', 'Best');
 
 sgtitle('Bode Plots for Different Values of c');
@@ -131,17 +126,12 @@ for i = 1:length(c_values)
     hold on;
 end
 legend('Location', 'Best');
-
-% Set the axis limits for the polar plot
 pax = gca;
-rlim([0 50]);
+rlim([0 50]); % set axis limits
 
 %% D //----------//----------//----------//----------//----------//
 
-a = 1;
-b = 2;
-wn = b;
-zeta_values = [0.2, 0.5, 0.8];
+a = 1;  b = 2;  wn = b;  zeta_values = [0.2, 0.5, 0.8];
 
 % Magnitude and phase plots
 figure;
@@ -170,15 +160,13 @@ end
 subplot(2, 1, 1);
 grid on;
 title('Bode Plot - Magnitude Response');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude (dB)');
+xlabel('Frequency (Hz)'); ylabel('Magnitude (dB)');
 legend('Location', 'Best');
 
 subplot(2, 1, 2);
 grid on;
 title('Bode Plot - Phase Response');
-xlabel('Frequency (Hz)');
-ylabel('Phase (degrees)');
+xlabel('Frequency (Hz)'); ylabel('Phase (degrees)');
 legend('Location', 'Best');
 
 sgtitle('Bode Plots for Different Values of ζ');
@@ -201,7 +189,5 @@ for i = 1:length(zeta_values)
     hold on;
 end
 legend('Location', 'Best');
-
-% Set the axis limits for the polar plot
-pax = gca;
-rlim([0 3]);  % Adjust the radius limit as needed
+pax = gca; % set axis limits
+rlim([0 3]);
