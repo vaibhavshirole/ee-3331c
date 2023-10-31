@@ -5,41 +5,17 @@ b = 2;
 b_values = [0.05*b, 1*b, 50*b];
 
 figure;
+hold on;
 for i = 1:length(b_values)
     b = b_values(i);
     G = tf(a, [1, b])
-    
-    % Calculate Bode plot
-    [m, p, w] = bode(G);
-    
-    % Convert angular freq to freq
-    f = w/(2*pi);
-    
-    % Plot magnitude response
-    subplot(2, 1, 1);
-    semilogx(f, 20*log10(squeeze(m)), 'DisplayName', ['b = ' num2str(b)], 'LineWidth', 2);
-    hold on;
-    
-    % Plot phase response
-    subplot(2, 1, 2);
-    semilogx(f, squeeze(p), 'DisplayName', ['b = ' num2str(b)], 'LineWidth', 2);
-    hold on;
+    bode(G);
 end
+hold off;
 
-% Set labels and legends and show plot
-subplot(2, 1, 1);
 grid on;
-title('Bode Plot - Magnitude Response');
-xlabel('Frequency (Hz)'); ylabel('Magnitude (dB)');
-legend('Location', 'Best');
-
-subplot(2, 1, 2);
-grid on;
-title('Bode Plot - Phase Response');
-xlabel('Frequency (Hz)'); ylabel('Phase (degrees)');
-legend('Location', 'Best');
-
-sgtitle('Bode Plots for Different Values of b');
+legend('0.05b', 'b', '50b');
+title('Bode Plots for Different Values of b');
 
 %% B //----------//----------//----------//----------//----------//
 
@@ -72,41 +48,17 @@ c_values = [0.1*b, 10*b];
 
 % Magnitude and phase plots
 figure;
+hold on;
 for i = 1:length(c_values)
     c = c_values(i);
     G = tf([b, 1], [c, 1, 0, 0])
-    
-    % Calculate the Bode plot
-    [m, p, w] = bode(G);
-    
-    % Convert angular freq to freq
-    f = w/(2*pi);
-    
-    % Plot magnitude response
-    subplot(2, 1, 1);
-    semilogx(f, 20*log10(squeeze(m)), 'DisplayName', ['c = ' num2str(c)], 'LineWidth', 2);
-    hold on;
-    
-    % Plot phase response
-    subplot(2, 1, 2);
-    semilogx(f, squeeze(p), 'DisplayName', ['c = ' num2str(c)], 'LineWidth', 2);
-    hold on;
+    bode(G);
 end
+hold off;
 
-% Set labels and legends and show plot
-subplot(2, 1, 1);
 grid on;
-title('Bode Plot - Magnitude Response');
-xlabel('Frequency (Hz)'); ylabel('Magnitude (dB)');
-legend('Location', 'Best');
-
-subplot(2, 1, 2);
-grid on;
-title('Bode Plot - Phase Response');
-xlabel('Frequency (Hz)'); ylabel('Phase (degrees)');
-legend('Location', 'Best');
-
-sgtitle('Bode Plots for Different Values of c');
+legend('0.1b', '10b');
+title('Bode Plots for Different Values of c');
 
 % Polar plot
 figure;
@@ -135,41 +87,17 @@ a = 1;  b = 2;  wn = b;  zeta_values = [0.2, 0.5, 0.8];
 
 % Magnitude and phase plots
 figure;
+hold on;
 for i = 1:length(zeta_values)
     zeta = zeta_values(i);
     G = tf((a * wn^2), [1, 2 * zeta * wn, wn^2])
-    
-    % Calculate the Bode plot
-    [m, p, w] = bode(G);
-    
-    % Convert angular frequency to regular frequency (Hz)
-    f = w/(2*pi);
-    
-    % Plot magnitude response
-    subplot(2, 1, 1);
-    semilogx(f, 20*log10(squeeze(m)), 'DisplayName', ['ζ = ' num2str(zeta)], 'LineWidth', 2);
-    hold on;
-    
-    % Plot phase response
-    subplot(2, 1, 2);
-    semilogx(f, squeeze(p), 'DisplayName', ['ζ = ' num2str(zeta)], 'LineWidth', 2);
-    hold on;
+    bode(G);
 end
+hold off;
 
-% Set labels and legends and show plot
-subplot(2, 1, 1);
 grid on;
-title('Bode Plot - Magnitude Response');
-xlabel('Frequency (Hz)'); ylabel('Magnitude (dB)');
-legend('Location', 'Best');
-
-subplot(2, 1, 2);
-grid on;
-title('Bode Plot - Phase Response');
-xlabel('Frequency (Hz)'); ylabel('Phase (degrees)');
-legend('Location', 'Best');
-
-sgtitle('Bode Plots for Different Values of ζ');
+legend('0.2', '0.5', '0.8');
+title('Bode Plots for Different Values of ζ');
 
 % Polar plot
 figure;
